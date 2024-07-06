@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>PassG | Password generater App</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f49600;
+    }
+
+    .container {
+        justify-content: left;
+    }
+</style>
+
+<body>
+    <div class="container w-96 p-4 flex flex-col gap-4 rounded bg-slate-200">
+        <h1 class="text-center font-semibold text-gray-700">PassG - The Random PASS</h1>
+        <p class="text-xl text-gray-700">Generate a <br><span class="underline text-green-500 font-semibold ">Random Password</span>
+        </p>
+        <div class="flex text-nowrap justify-start items-center gap-2">
+            <p class="font-semibold text-gray-700">Password Length</p>
+            <input type="number" class="password-length w-full p-2 rounded text-gray-700 outline-none">
+        </div>
+        <div class="bg-white w-full flex justify-between items-center gap-2 rounded">
+            <input type="text" placeholder="Password" class="password-box w-full p-2 outline-none bg-transparent text-gray-700">
+            <span class="copy pr-4 cursor-pointer"><i class="fa-solid fa-copy fa-sm" style="color: #00c524;"></i></span>
+        </div>
+        <button class="bg-green-600 text-white w-44 p-2 flex justify-center items-center gap-2 rounded "><i
+                class="fa-solid fa-key fa-sm" style="color: #ffffff;"></i>Generate Password</button>
+    </div>
+
+
+
+    <script>
+        const passwordBox = document.querySelector('.password-box');
+        const passwordLength = document.querySelector('.password-length');
+        const copy = document.querySelector('.copy');
+        const button = document.querySelector('button');
+        const copyBtn = document.querySelector('.copy i')
+            
+        const upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        const lowerCase = 'abcdefghijklmnopqrstuvwxyz';
+        const numbers = '0123456789';
+        const symbols = '!@#$%^&*()_-+=?/.,<>{}[]\|~';
+
+        const allChars = upperCase + lowerCase + numbers + symbols;
+
+
+        button.addEventListener('click', ()=>{
+            password = '';
+            password += upperCase[Math.floor(Math.random() * upperCase.length)];
+            password += lowerCase[Math.floor(Math.random() * lowerCase.length)]
+            password += numbers[Math.floor(Math.random() * numbers.length)]
+            password += symbols[Math.floor(Math.random() * symbols.length)]
+
+            while (passwordLength.value > password.length) {
+                password += allChars[Math.floor(Math.random() * allChars.length)]
+            }
+            passwordBox.value = password;
+            copyBtn.style="color: green;"
+        })
+
+        copy.addEventListener('click', ()=>{
+            passwordBox.select();
+            document.execCommand("copy");
+
+            copyBtn.style="color: gray;"
+        })
+       
+
+
+
+    </script>
+</body>
+
+</html>
